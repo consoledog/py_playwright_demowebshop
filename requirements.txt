@@ -1,0 +1,5 @@
+playwright==1.51.0
+pytest
+pytest-playwright
+pytest-xdist
+allure-pytest
