@@ -1,0 +1,18 @@
+Note: This is just a txt file to define some stuff that will be used in the project.
+
+product config:
+Note:   This is a configuration of a product, different product categories have different configurations that the customer can choose from.
+        For example: When buying sneakers the customer can select different color, and size, while buying a computer can select procesor,
+                     RAM, storage, etc.
+
+1. no_config:           This is for products that do not have any configuration that customer can select from.
+                        Example: https://demowebshop.tricentis.com/141-inch-laptop
+
+2. gift_card_config:    As the name says this is a possible configuration for gift cards.
+                        Example: https://demowebshop.tricentis.com/25-virtual-gift-card
+
+3. computer_radio_button_processor_ram: Used for computer products that have a processor and RAM selection in form of radio buttons
+                                        Example: https://demowebshop.tricentis.com/build-your-cheap-own-computer
+
+4. computer_drop_down_processor_ram:    Used for computer products that have a processor and RAM selection in form of drop down menu
+                                        Example: https://demowebshop.tricentis.com/build-your-own-computer

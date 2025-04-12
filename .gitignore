@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+venv/
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# pytest
+.pytest_cache/
+
+# Allure reports
+allure-results/
+allure-report/
+all/
+
+# HTML test reports
+reports/
+
+# Logs
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Jenkins workspace (optional, if syncing Jenkins work)
+*.jenkins/
+
+# dotenv (if using any secrets)
+.env
+
+# screenshots if tests failed
+screenshots/
