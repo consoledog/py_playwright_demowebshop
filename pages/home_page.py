@@ -3,9 +3,23 @@ from pages.base_page import BasePage
 class HomePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.search_input = "input[name='q']"
-        self.search_button = "button[type='submit']"
+        self.HOME_PAGE_URL = "https://demowebshop.tricentis.com/"
+        self.items = page.locator(".item-box")
+    
+    def click_on_home_page_product(self, product_name: str):
+        """
+        Loops through the item boxes, finds the one containing product_name, 
+        and clicks on it.
+        """
+        count = self.items.count()
 
-    def search_product(self, product: str):
-        self.page.fill(self.search_input, product)
-        self.page.click(self.search_button)
+        for index in range(count):
+            item_box = self.items.nth(index)
+
+            # Retrieve the text content of the current item
+            text = item_box.inner_text()
+
+            # If product_name matches the text then click on it
+            if product_name in text:
+                item_box.locator(".details a").click()
+                break
