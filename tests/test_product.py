@@ -5,6 +5,7 @@ from pages.home_page import HomePage
 from pages.product_page import ProductPage
 from pages.gift_cart_page import GiftCardPage
 from pages.comp_radio_page import CompRadioPage
+from pages.comp_drop_page import CompDropDownPage
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +13,16 @@ logger = logging.getLogger(__name__)
 all_combinations = [
     # Combination 1
     [
+        {
+            "name": "Build your own computer",
+            "config": "computer_drop_down_processor_ram",
+            "qty": "1",
+            "processor": "2.2 GHz Intel Pentium Dual-Core E2200",
+            "ram": "2 GB",
+            "hdd": "400 GB",
+            "os": "Windows 7",
+            "software": ["Acrobat Reader"],
+        },
         {
             "name": "$25 Virtual Gift Card",
             "config": "gift_card_config",
@@ -35,7 +46,7 @@ all_combinations = [
             "name": "14.1-inch Laptop",
             "config": "no_config",
             "qty": "1"
-        },
+        }
     ]
 ]
 
@@ -63,7 +74,7 @@ def test_product_search(browser, combination):
         if   (product["config"] == "no_config"): product_item = ProductPage(browser)
         elif (product["config"] == "gift_card_config"): product_item = GiftCardPage(browser)
         elif (product["config"] == "computer_radio_button_processor_ram"): product_item = CompRadioPage(browser)
-        elif (product["config"] == "computer_drop_down_processor_ram"): pass #product_item = CompDropDown(browser)
+        elif (product["config"] == "computer_drop_down_processor_ram"): product_item = CompDropDownPage(browser)
         else:
             logger.error(f"Error in parameters: No such config")
         

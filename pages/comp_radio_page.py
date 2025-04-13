@@ -1,6 +1,5 @@
 from overrides import overrides
-from playwright.sync_api import Locator
-
+import utils.page_helper as pageHelper
 from pages.product_page import ProductPage
 
 class CompRadioPage(ProductPage):
@@ -13,38 +12,15 @@ class CompRadioPage(ProductPage):
 
     def select_processor(self, selection: str) -> None:
         li_items = self.processor.locator("li")
-        self.select_item(li_items, selection)
+        pageHelper.select_item(li_items, selection)
 
     def select_ram(self, selection: str) -> None:
         li_items = self.ram.locator("li")
-        self.select_item(li_items, selection)
+        pageHelper.select_item(li_items, selection)
     
     def select_hdd(self, selection: str) -> None:
         li_items = self.hdd.locator("li")
-        self.select_item(li_items, selection)
-    
-    def select_software(self, selection: str) -> None:
-        li_items = self.software.locator("li")
-        count = li_items.count()
-
-        for index in range(count):
-            current_li = li_items.nth(index)
-            label_text = current_li.locator("label").inner_text()
-            if selection in label_text:
-                # Found the matching label
-                current_li.locator("input[type=checkbox]").check()
-                break
-
-    def select_item(self, li_items: Locator, selection: str) -> None:
-        count = li_items.count()
-
-        for index in range(count):
-            current_li = li_items.nth(index)
-            label_text = current_li.locator("label").inner_text()
-            if selection in label_text:
-                # Found the matching label
-                current_li.locator("input[type=radio]").check()
-                break
+        pageHelper.select_item(li_items, selection)
     
     @overrides
     def select_configuration(self, product: dict) -> None:
@@ -52,6 +28,6 @@ class CompRadioPage(ProductPage):
         self.select_ram(product["ram"])
         self.select_hdd(product["hdd"])
         for software in product["software"]:
-            self.select_software(software)
+            pageHelper.select_software(self.software, software)
         self.fill_product_quantity(product["qty"])
         self.click_add_to_cart_button()
