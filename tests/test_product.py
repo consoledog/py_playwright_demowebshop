@@ -6,6 +6,8 @@ from pages.product_page import ProductPage
 from pages.gift_cart_page import GiftCardPage
 from pages.comp_radio_page import CompRadioPage
 from pages.comp_drop_page import CompDropDownPage
+from pages.navigation_page import NavigationPage
+from pages.shoping_cart_page import ShoppingCartPage
 
 logger = logging.getLogger(__name__)
 
@@ -50,12 +52,14 @@ all_combinations = [
     ]
 ]
 
-@allure.feature("Product Search")
-@allure.story("Search with different product combinations")
-@pytest.mark.parametrize("combination", all_combinations)
-def test_product_search(browser, combination):
+# Assign unique IDs based on the index or some property of the combination.
+combination_ids = list(range(len(all_combinations)))  # [0, 1, 2, ...]
+
+@pytest.mark.parametrize("combination", all_combinations, ids=combination_ids)
+def test_product_search(browser, combination, request):
     
-    logger.info(f"Starting test for products: ")
+    combination_index = int(request.node.callspec.id.split('-')[-1])
+    logger.info(f"Starting {combination_index} test data for products: ")
     for product in combination:
         logger.info(product["name"])
     
@@ -68,8 +72,8 @@ def test_product_search(browser, combination):
     for product in combination:
         # 2.1) Open i-th item
         homepage.click_on_home_page_product(product["name"])
-        # 2.2) Read and save i-th item information
-        # 2.3) Select i-th item configuration and add the item to the cart
+
+        # 2.2) Select i-th item configuration and add the item to the cart
         product_item = None
         if   (product["config"] == "no_config"): product_item = ProductPage(browser)
         elif (product["config"] == "gift_card_config"): product_item = GiftCardPage(browser)
@@ -79,12 +83,16 @@ def test_product_search(browser, combination):
             logger.error(f"Error in parameters: No such config")
         
         product_item.select_configuration(product)
-
-        browser.pause()
         homepage.navigate(homepage.HOME_PAGE_URL)
 
     # 3) Go to the cart
+    navigationPage = NavigationPage(browser)
+    navigationPage.click_on_shopping_cart()
+    
     # 4) Check that correct 3 items are added in the cart
+    shoppingCartPage = ShoppingCartPage(browser)
+    assert shoppingCartPage.are_products_name_match(all_combinations[combination_index]), "Some products are missing in the shopping cart."
+
     # 5) Remove one item from the cart and verify it is removed
     # 6) Clear the cart
     # 7) Verify the cart is empty

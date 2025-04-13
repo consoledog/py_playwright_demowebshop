@@ -5,6 +5,5 @@ class NavigationPage(BasePage):
         super().__init__(page)
         self.shopping_cart = page.locator("span.cart-label:has-text('Shopping cart')")
 
-    def search_product(self, product: str):
-        self.page.fill(self.search_input, product)
-        self.page.click(self.search_button)
+    def click_on_shopping_cart(self) -> None:
+        self.shopping_cart.click()
