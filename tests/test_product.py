@@ -1,6 +1,5 @@
 import pytest
 import logging
-import allure
 from pages.home_page import HomePage
 from pages.product_page import ProductPage
 from pages.gift_cart_page import GiftCardPage
@@ -56,7 +55,7 @@ all_combinations = [
 combination_ids = list(range(len(all_combinations)))  # [0, 1, 2, ...]
 
 @pytest.mark.parametrize("combination", all_combinations, ids=combination_ids)
-def test_product_search(browser, combination, request):
+def test_product_add_remove(browser, combination, request):
     
     combination_index = int(request.node.callspec.id.split('-')[-1])
     logger.info(f"Starting {combination_index} test data for products: ")
@@ -92,8 +91,17 @@ def test_product_search(browser, combination, request):
     # 4) Check that correct 3 items are added in the cart
     shoppingCartPage = ShoppingCartPage(browser)
     assert shoppingCartPage.are_products_name_match(all_combinations[combination_index]), "Some products are missing in the shopping cart."
+    assert shoppingCartPage.are_products_quantity_match(all_combinations[combination_index]), "Some quantities are not the same"
+    
+    # 5) Remove one item from the cart
+    item_id = shoppingCartPage.remove_item_from_cart(all_combinations[combination_index][1]["name"])
 
-    # 5) Remove one item from the cart and verify it is removed
-    # 6) Clear the cart
-    # 7) Verify the cart is empty
+    # 6) Verify the element is removed
+    assert shoppingCartPage.is_item_cart_removed(item_id), f"Item with id {item_id} is still in the cart."
+    
+    # 7) Clear the cart
+    shoppingCartPage.clear_cart()
+
+    # 8) Verify the cart is empty
+    assert shoppingCartPage.is_cart_clear(), f"Item cart is not empty"
 
