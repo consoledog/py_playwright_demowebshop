@@ -54,15 +54,17 @@ def test_product_add_remove(browser, combination, request):
     
     homepage = HomePage(browser)
 
-    # 1) Go to the homepage
+    logger.info("# 1) Go to the homepage")
     homepage.navigate(homepage.HOME_PAGE_URL)
 
     # 2) In loop
     for product in combination:
-        # 2.1) Open i-th item
+
+        logger.info(f"# 2.1) Open {product["name"]} item")
         homepage.click_on_home_page_product(product["name"])
 
-        # 2.2) Select i-th item configuration and add the item to the cart
+        logger.info(f"# 2.2) Select {product["name"]} item configuration and add the item to the cart")
+        # Note: Code below is for selecting the configuration of a product (Like selecting type of processor, RAM, etc.)
         product_item = None
         if   (product["config"] == "no_config"): product_item = ProductPage(browser)
         elif (product["config"] == "gift_card_config"): product_item = GiftCardPage(browser)
@@ -74,24 +76,24 @@ def test_product_add_remove(browser, combination, request):
         product_item.select_configuration(product)
         homepage.navigate(homepage.HOME_PAGE_URL)
 
-    # 3) Go to the cart
+    logger.info("# 3) Go to the cart")
     navigationPage = NavigationPage(browser)
     navigationPage.click_on_shopping_cart()
     
-    # 4) Check that correct 3 items are added in the cart
+    logger.info("# 4) Check that correct items are added in the cart")
     shoppingCartPage = ShoppingCartPage(browser)
     assert shoppingCartPage.are_products_name_match(all_combinations[combination_index]), "Some products are missing in the shopping cart."
     assert shoppingCartPage.are_products_quantity_match(all_combinations[combination_index]), "Some quantities are not the same"
     
-    # 5) Remove one item from the cart
+    logger.info(f"# 5) Remove item from the cart")
     item_id = shoppingCartPage.remove_item_from_cart(all_combinations[combination_index][1]["name"])
 
-    # 6) Verify the element is removed
+    logger.info(f"# 6) Verify item is removed")
     assert shoppingCartPage.is_item_cart_removed(item_id), f"Item with id {item_id} is still in the cart."
     
-    # 7) Clear the cart
+    logger.info("# 7) Clear the cart")
     shoppingCartPage.clear_cart()
 
-    # 8) Verify the cart is empty
+    logger.info("# 8) Verify the cart is empty")
     assert shoppingCartPage.is_cart_clear(), f"Item cart is not empty"
 
