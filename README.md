@@ -68,6 +68,7 @@ Let's say one product have configuration that is composed of:
 - Select RAM
 - Select HDD
 ...
+  
 Let's say another product have configuration that is composed of:
 - Select shoe color
 - Select shoe size
