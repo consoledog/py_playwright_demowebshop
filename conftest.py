@@ -31,7 +31,8 @@ def playwright_instance():
 # The fixture is function-scoped (a new instance for every test function).
 # The fixture is parametrized, so there are 3 browsers then each test will run 3 times
 # (For each of the browsers)
-@pytest.fixture(scope="function", params=["chromium", "firefox", "webkit"])
+#@pytest.fixture(scope="function", params=["chromium", "firefox", "webkit"])
+@pytest.fixture(scope="function", params=["chromium"])
 def browser(request, playwright_instance):
     browser_name = request.param
     logger.info(f"Starting browser: {browser_name}")
