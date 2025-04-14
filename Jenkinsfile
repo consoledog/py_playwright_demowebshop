@@ -37,7 +37,6 @@ pipeline {
         stage('Allure Report') {
             steps {
                 // Activate the virtual environment if needed, then generate the Allure report.
-                // (Adjust this if the allure CLI is installed system-wide.)
                 sh '''
                     source venv/bin/activate
                     allure generate allure-results --clean -o allure-report
@@ -48,8 +47,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'allure-results/**, allure-report/**'
-            // If configured, this might automatically publish the allure report in the Jenkins UI
-            allure includeProperties: false, jdk: '', results: 'allure-report'
+            allure includeProperties: false, jdk: '', results: ['allure-report']
         }
     }
 }
