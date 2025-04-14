@@ -1,6 +1,6 @@
 # Repository for Playwright + Pytest Framework for demowebshop
 
-This repository is a placeholder project implementing:
+This repository is a project implementing:
 - **Page Object Model (POM)** for maintainability.
 - **Pytest** as the test runner.
 - **Test Parameterization** for testing multiple product combinations.
