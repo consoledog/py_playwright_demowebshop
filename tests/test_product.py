@@ -15,16 +15,6 @@ all_combinations = [
     # Combination 1
     [
         {
-            "name": "Build your own computer",
-            "config": "computer_drop_down_processor_ram",
-            "qty": "1",
-            "processor": "2.2 GHz Intel Pentium Dual-Core E2200",
-            "ram": "2 GB",
-            "hdd": "400 GB",
-            "os": "Windows 7",
-            "software": ["Acrobat Reader"],
-        },
-        {
             "name": "$25 Virtual Gift Card",
             "config": "gift_card_config",
             "qty": "1",

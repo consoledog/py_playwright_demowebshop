@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         PYTHON = "python3"
+        PATH = "${env.PATH}:/usr/local/bin"
     }
 
     stages {

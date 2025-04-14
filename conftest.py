@@ -31,14 +31,13 @@ def playwright_instance():
 # The fixture is function-scoped (a new instance for every test function).
 # The fixture is parametrized, so there are 3 browsers then each test will run 3 times
 # (For each of the browsers)
-#@pytest.fixture(scope="function", params=["chromium", "firefox", "webkit"])
-@pytest.fixture(scope="function", params=["chromium"])
+@pytest.fixture(scope="function", params=["chromium", "firefox", "webkit"])
 def browser(request, playwright_instance):
     browser_name = request.param
     logger.info(f"Starting browser: {browser_name}")
 
     # Launch the browser in headless mode
-    browser = getattr(playwright_instance, browser_name).launch(headless=False)
+    browser = getattr(playwright_instance, browser_name).launch(headless=True)
     # Creates an isolated browser context. This is similar to opening a new user session with separate cookies and cache.
     context = browser.new_context()
     page = context.new_page()
