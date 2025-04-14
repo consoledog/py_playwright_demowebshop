@@ -18,6 +18,7 @@ This repository is a placeholder project implementing:
    ```bash
    source venv/bin/activate
    ```
+   Note: For activating the venv on Windows, use from cli: venv\Scripts\activate.bat
    
 2. Install requirements:
    ```bash
@@ -27,15 +28,16 @@ This repository is a placeholder project implementing:
    ```bash
    python -m playwright install
    ```
-4. Run tests
+4. Install allure on your computer
+5. Run tests
    ```bash
    pytest --alluredir=allure-results -n auto
    ```
-5. Generate Allure report:
+6. Generate Allure report:
    ```bash
    allure generate allure-results --clean -o allure-report
    ```
-6. Open the Allure report
+7. Open the Allure report
    ```bash
    allure open allure-report
    ```
