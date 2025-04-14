@@ -12,21 +12,36 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Install Dependencies') {
+        stage('Setup Virtual Environment') {
             steps {
-                sh "${env.PYTHON} -m pip install --upgrade pip"         // Upgrade python package manager
-                sh "${env.PYTHON} -m pip install -r requirements.txt"   // Install all libs from requirments.txt
-                sh "${env.PYTHON} -m playwright install"                // Install Playwright browsers
+                // Create and activate a virtual environment, upgrade pip using the --break-system-packages flag,
+                // install the dependencies, and install Playwright browsers.
+                sh '''
+                    ${PYTHON} -m venv venv
+                    source venv/bin/activate
+                    ${PYTHON} -m pip install --upgrade pip --break-system-packages
+                    ${PYTHON} -m pip install -r requirements.txt
+                    ${PYTHON} -m playwright install
+                '''
             }
         }
         stage('Run Tests') {
             steps {
-                sh "${env.PYTHON} -m pytest --alluredir=allure-results -n auto"
+                // Activate the virtual environment and run pytest.
+                sh '''
+                    source venv/bin/activate
+                    ${PYTHON} -m pytest --alluredir=allure-results -n auto
+                '''
             }
         }
         stage('Allure Report') {
             steps {
-                sh "allure generate allure-results --clean -o allure-report"
+                // Activate the virtual environment if needed, then generate the Allure report.
+                // (Adjust this if the allure CLI is installed system-wide.)
+                sh '''
+                    source venv/bin/activate
+                    allure generate allure-results --clean -o allure-report
+                '''
             }
         }
     }
