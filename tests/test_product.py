@@ -7,42 +7,10 @@ from pages.comp_radio_page import CompRadioPage
 from pages.comp_drop_page import CompDropDownPage
 from pages.navigation_page import NavigationPage
 from pages.shoping_cart_page import ShoppingCartPage
+from products_data import all_combinations, combination_ids
 
 logger = logging.getLogger(__name__)
 
-# Example list of product combinations to test
-all_combinations = [
-    # Combination 1
-    [
-        {
-            "name": "$25 Virtual Gift Card",
-            "config": "gift_card_config",
-            "qty": "1",
-            "recipient_name": "Alex",
-            "recipient_email": "alex@gmail.com",
-            "sender_name": "Nenad",
-            "sender_email": "nenad@gmail.com",
-            "message": "This is your gift card. Happy birthday",
-        },
-        {
-            "name": "Simple Computer",
-            "config": "computer_radio_button_processor_ram",
-            "qty": "1",
-            "processor": "Slow",
-            "ram": "8 GB",
-            "hdd": "400 GB",
-            "software": ["Image Viewer", "Office Suite"],
-        },
-        {
-            "name": "14.1-inch Laptop",
-            "config": "no_config",
-            "qty": "1"
-        }
-    ]
-]
-
-# Assign unique IDs based on the index or some property of the combination.
-combination_ids = list(range(len(all_combinations)))  # [0, 1, 2, ...]
 
 @pytest.mark.parametrize("combination", all_combinations, ids=combination_ids)
 def test_product_add_remove(browser, combination, request):

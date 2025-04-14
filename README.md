@@ -58,3 +58,24 @@ This repository is a placeholder project implementing:
 
 -  In Console Output you can see the result of the execution
 -  In Allure Report tab  can see the graphic report
+
+## About product_specification (IMPORTANT)
+
+The purpose of this file is the existance of different configurations of products.
+
+Let's say one product have configuration that is composed of: 
+- Select processor
+- Select RAM
+- Select HDD
+...
+Let's say another product have configuration that is composed of:
+- Select shoe color
+- Select shoe size
+...
+
+So in this file are defined different types of configurations, and each of this
+configurations is supported in the code by the function "def select_configuration"
+So far you can find this function into comp_drop_page.py, comp_radio_page.py, gift_cart_page.py, product_page.py (Default one)
+
+Note: If you want to support new configuration, add this code name into "product_specification.txt", then implement
+the function "select_configuration" in your "*_page.py" file
