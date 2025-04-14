@@ -47,7 +47,9 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: 'allure-results/**'
+            archiveArtifacts artifacts: 'allure-results/**, allure-report/**'
+            // If configured, this might automatically publish the allure report in the Jenkins UI
+            allure includeProperties: false, jdk: '', results: 'allure-report'
         }
     }
 }
