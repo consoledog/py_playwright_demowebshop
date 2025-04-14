@@ -47,7 +47,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'allure-results/**, allure-report/**'
-            allure includeProperties: false, jdk: '', results: ['allure-report']
+            allure includeProperties: false, jdk: '', results: [[path: 'allure-report']]
         }
     }
 }
