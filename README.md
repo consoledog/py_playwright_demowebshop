@@ -9,7 +9,7 @@ This repository is a placeholder project implementing:
 - **Parallel Execution** on Chromium, Firefox, and WebKit.
 - **Jenkinsfile** for CI/CD integration.
 
-## Setup
+## Local Setup
 
 1. Create a virtual environment and activate it:
    ```bash
@@ -39,3 +39,22 @@ This repository is a placeholder project implementing:
    ```bash
    allure open allure-report
    ```
+
+## Jenkins Setup
+1. Install Jenkins server on a machine
+2. Install Allure Jenkins plugin in Jenkins plugins
+3. Create a new item from Jenkins UI:
+   - New Item
+   - Select an item name: Pipleline
+   - In Pipline section, change definition to "Pipeline script from SCM"
+      - Set SCM to Git
+      - Set Repository URL to be: https://github.com/consoledog/py_playwright_demowebshop.git
+      - Set Branch Specifier (blank for 'any') to be: */main
+      - Script Path: Jenkinsfile
+      Note: Jenkinsfile is in the root of the project
+4. Click Save
+5. Go to the job instance
+6. Click "Build Now"
+
+-  In Console Output you can see the result of the execution
+-  In Allure Report tab  can see the graphic report
