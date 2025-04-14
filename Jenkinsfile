@@ -14,8 +14,6 @@ pipeline {
         }
         stage('Setup Virtual Environment') {
             steps {
-                // Create and activate a virtual environment, upgrade pip using the --break-system-packages flag,
-                // install the dependencies, and install Playwright browsers.
                 sh '''
                     ${PYTHON} -m venv venv
                     source venv/bin/activate
@@ -27,16 +25,14 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                // Activate the virtual environment and run pytest.
                 sh '''
                     source venv/bin/activate
                     ${PYTHON} -m pytest --alluredir=allure-results -n auto
                 '''
             }
         }
-        stage('Allure Report') {
+        stage('Generate Allure Report') {
             steps {
-                // Activate the virtual environment if needed, then generate the Allure report.
                 sh '''
                     source venv/bin/activate
                     allure generate allure-results --clean -o allure-report
@@ -47,7 +43,6 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'allure-results/**, allure-report/**'
-            allure includeProperties: false, jdk: '', results: [[path: 'allure-report']]
         }
     }
 }
