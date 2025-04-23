@@ -4,3 +4,4 @@ pytest-playwright
 pytest-xdist
 allure-pytest
 overrides
+pytest-rerunfailures
